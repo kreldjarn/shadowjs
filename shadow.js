@@ -8,24 +8,24 @@ var Shadow = (function() {
     // =======
     // PRIVATE
     // =======
-    var defaultScale = window.innerWidth;
+    var _defaultScale = window.innerWidth;
 
     // Vector operations
-    var vec2 = function(a, b) {
+    var _vec2 = function(a, b) {
         return {
             x: b.x - a.x,
             y: b.y - a.y
         };
     };
 
-    var normal = function(a, b) {
+    var _normal = function(a, b) {
         return {
             x: b.y - a.y,
             y: -(b.x - a.x)
         };
     };
 
-    var dot = function(a, b) {
+    var _dot = function(a, b) {
         return a.x * b.x + a.y * b.y;
     };
 
@@ -77,31 +77,17 @@ var Shadow = (function() {
         // performance to use a smaller scalar. If you have a square-ish canvas
         // and want the shadow to definitely exceed the canvas (i.e. not see the
         // end of the shadow) I recommend using scale = canvas.width * 1.5
-        scale = scale || defaultScale;
+        scale = scale || _defaultScale;
         
         // Check if edge is invisible from the perspective of origin
         var a = points[points.length - 1];
         for (var i = 0; i < points.length; ++i, a = b)
         {
             var b = points[i];
-            //var originToA = {
-            //    x: a.x - origin.x,
-            //    y: a.y - origin.y
-            //};
-            //var originToB = {
-            //    x: b.x - origin.x,
-            //    y: b.y - origin.y
-            //};
-            //var normalAtoB = {
-            //    x: b.y - a.y,
-            //    y: -(b.x - a.x)
-            //};
-            //var normalDotOriginToA = normalAtoB.x * originToA.x +
-            //                         normalAtoB.y * originToA.y;
 
-            var originToA = vec2(origin, a);
-            var normalAtoB = normal(a, b);
-            var normalDotOriginToA = dot(normalAtoB, originToA);
+            var originToA = _vec2(origin, a);
+            var normalAtoB = _normal(a, b);
+            var normalDotOriginToA = _dot(normalAtoB, originToA);
     
             // If the edge is invisible from the perspective of origin it casts
             // a shadow.
@@ -110,7 +96,7 @@ var Shadow = (function() {
                 // dot(a, b) == cos(phi) * |a| * |b|
                 // thus, dot(a, b) < 0 => cos(phi) < 0 => 90° < phi < 270°
 
-                var originToB = vec2(origin, b);
+                var originToB = _vec2(origin, b);
     
                 // We draw the form of the shade so that it definitely exceeds 
                 // the canvas. This is probably cheaper than projecting the 
@@ -134,7 +120,8 @@ var Shadow = (function() {
         }
     };
 
-
+    // If (for some reason) your points array traverses the segments of the
+    // form in clockwise order, use castInverse.
     var castInverse = function(ctx, origin, points, scale) {
         // Copy points and reverse in place
         var pointsReversed = points.slice(0).reverse();
