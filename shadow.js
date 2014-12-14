@@ -1,7 +1,7 @@
 // =========
 // shadow.js
 // =========
-// Author: Kristján Eldjárn Hjörleifsson, kristjan@eldjarn.net
+// Author: Kristján Eldjárn, kristjan@eldjarn.net
 
 
 var Shadow = (function() {
@@ -10,13 +10,35 @@ var Shadow = (function() {
     // =======
     var defaultScale = window.innerWidth;
 
+    // Vector operations
+    var vec2 = function(a, b) {
+        return {
+            x: b.x - a.x,
+            y: b.y - a.y
+        };
+    };
+
+    var normal = function(a, b) {
+        return {
+            x: b.y - a.y,
+            y: -(b.x - a.x)
+        };
+    };
+
+    var dot = function(a, b) {
+        return a.x * b.x + a.y * b.y;
+    };
+
+
     // ======
     // PUBLIC
     // ======
-
     var castFromRectangle = function(ctx, origin, x, y, w, h, scale) {
         // Casts a shadow of a rectangular object from a point light source
         // located at origin
+
+        // Create an array that traverses the segments of the rectangle
+        // in a counter-clockwise order.
         var points = [
             {x: x, y: y},
             {x: x, y: y + h},
@@ -33,7 +55,7 @@ var Shadow = (function() {
     
         // ctx
         // ===
-        // HTML5 canvas context
+        // The HTML5 canvas context onto which the shadow is to be cast.
     
         // origin
         // ======
@@ -62,28 +84,33 @@ var Shadow = (function() {
         for (var i = 0; i < points.length; ++i, a = b)
         {
             var b = points[i];
-            var originToA = {
-                x: a.x - origin.x,
-                y: a.y - origin.y
-            };
-            var originToB = {
-                x: b.x - origin.x,
-                y: b.y - origin.y
-            };
-            var normalAtoB = {
-                x: b.y - a.y,
-                y: -(b.x - a.x)
-            };
-    
-            var normalDotOriginToA = normalAtoB.x * originToA.x +
-                                     normalAtoB.y * originToA.y;
+            //var originToA = {
+            //    x: a.x - origin.x,
+            //    y: a.y - origin.y
+            //};
+            //var originToB = {
+            //    x: b.x - origin.x,
+            //    y: b.y - origin.y
+            //};
+            //var normalAtoB = {
+            //    x: b.y - a.y,
+            //    y: -(b.x - a.x)
+            //};
+            //var normalDotOriginToA = normalAtoB.x * originToA.x +
+            //                         normalAtoB.y * originToA.y;
+
+            var originToA = vec2(origin, a);
+            var normalAtoB = normal(a, b);
+            var normalDotOriginToA = dot(normalAtoB, originToA);
     
             // If the edge is invisible from the perspective of origin it casts
             // a shadow.
             if (normalDotOriginToA < 0)
             {
                 // dot(a, b) == cos(phi) * |a| * |b|
-                // => cos(phi) < 0
+                // thus, dot(a, b) < 0 => cos(phi) < 0 => 90° < phi < 270°
+
+                var originToB = vec2(origin, b);
     
                 // We draw the form of the shade so that it definitely exceeds 
                 // the canvas. This is probably cheaper than projecting the 
@@ -96,7 +123,9 @@ var Shadow = (function() {
                            b.y + scale * originToB.y);
                 ctx.lineTo(b.x, b.y);
                 ctx.closePath();
-                // TODO:
+                // ====
+                // TODO
+                // ====
                 // Create an option to have the fillStyle be a gradient, i.e.
                 // letting the shadow fade to transparency.
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
