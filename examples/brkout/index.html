@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Breakout!</title>
+</head>
+<body>
+	<canvas id="workspace" width="600" height="600">
+		<a href="https://chrome.google.com">
+			https://chrome.google.com
+		</a>
+	</canvas>
+	<h1>Controls</h1>
+	<ul>
+		<li><strong>A:</strong> left</li>
+		<li><strong>D:</strong> right</li>
+		<li><strong>M:</strong> release ball</li>
+		<li><strong>N:</strong> toggle 'floor is lava' (i.e. death upon hitting floor)</li>
+		<li><strong>I:</strong> toggle 'blind mode'</li>
+		<li><strong>P:</strong> toggle pause</li>
+		<li><strong>O:</strong> step to next tick when paused</li>
+	</ul>
+	<h1>A list of Cool Things®</h1>
+	<p>Not necessarily exhaustive, nor in order of coolness</p>
+	<ul>
+		<li>Three states: idle, playing, victory (Game says 'Huzzah!' upon winning)</li>
+		<li>Side collision on both paddle and bricks</li>
+		<li>Paddle moves with inertia</li>
+		<li>Paddle bounces off walls</li>
+		<li>When ball bounces off paddle, it pushes the paddle in the opposite direction</li>
+		<li>Ball is a light source and other entities cast shadows. This also affects gameplay,
+			since the paddle is partially obscured when the ball is at the top and the bricks
+			inbetween them.</li>
+		<li>Light around ball pulsates very slightly</li>
+		<li>Ball leaves a particle trail</li>
+		<li>Screen flashes when the ball hits bricks or the floor</li>
+		<li>'Blind Mode' where you can neither see the bricks nor the paddle, only their shadows. (Toggle with "I")</li>
+		<li>Bricks come apart upon impact and scatter particles. (Yes, I know the fragments are circular)</li>
+		<li>Level editor<br />
+<textarea id="level-editor" rows="7" cols="25">
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1],
+[1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 1],
+[0, 0, 0, 3, 3, 4, 4, 3, 3, 0, 0, 0],
+[1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 1],
+[1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</textarea><br />
+			<button id="start-level">Start level</button>
+		</li>
+		<li>Bricks can have up to 6 lives and can be indestructible (use -1 for indestructible bricks)</li>
+		<li>Code adheres to the <a href="https://carldanley.com/js-revealing-module-pattern/" target="_blank">Revealing Module Pattern</a>; objects have private and public members, implemented via closures</li>
+	</ul>
+</body>
+<script type="text/javascript" src="scripts/utils.js"></script>
+<script type="text/javascript" src="../../shadow.js"></script>
+<script type="text/javascript" src="scripts/g_keys.js"></script>
+<script type="text/javascript" src="scripts/bricks.js"></script>
+<script type="text/javascript" src="scripts/particles.js"></script>
+<script type="text/javascript" src="scripts/player.js"></script>
+<script type="text/javascript" src="scripts/ball.js"></script>
+<script type="text/javascript" src="scripts/g_main.js"></script>
+<script type="text/javascript" src="scripts/update.js"></script>
+<script type="text/javascript" src="scripts/render.js"></script>
+<script type="text/javascript" src="scripts/breakout.js"></script>
+</html>
