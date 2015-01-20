@@ -12,7 +12,6 @@ var g_frameCounter = 1;
 
 var TOGGLE_CLEAR = 'C'.charCodeAt(0);
 var TOGGLE_BLIND_MODE = 'I'.charCodeAt(0);
-var TOGGLE_MARK_COLLISION_CHECK = 'M'.charCodeAt(0);
 
 function renderVictoryMessage(ctx)
 {
@@ -32,9 +31,7 @@ function render(ctx) {
     if (g_keys.eatKey(TOGGLE_CLEAR)) g_doClear = !g_doClear;
 
     if (g_keys.eatKey(TOGGLE_BLIND_MODE)) g_blindMode = !g_blindMode;
-    if (g_keys.eatKey(TOGGLE_MARK_COLLISION_CHECK))
-        g_markCollisionCheck = !g_markCollisionCheck;
-    
+
     if (g_doClear)
         fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height,
                 'rgb(' + bg.r + ',' + bg.g + ',' + bg.b + ')');

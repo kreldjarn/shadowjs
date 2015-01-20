@@ -48,8 +48,8 @@ g_main._iterCore = function (dt) {
 g_main._isGameOver = false;
 
 g_main.gameOver = function () {
-    this._isGameOver = true;
-    console.log("gameOver: quitting...");
+    //this._isGameOver = true;
+    //console.log("gameOver: quitting...");
 };
 
 // Simple voluntary quit mechanism

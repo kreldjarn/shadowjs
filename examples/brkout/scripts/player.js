@@ -1,6 +1,8 @@
 var KEY_A = 'A'.charCodeAt(0);
 var KEY_D = 'D'.charCodeAt(0);
-var g_player = player(40, 570, KEY_A, KEY_D);
+var KEY_LT = 37
+var KEY_RT = 39
+var g_player = player(40, 570, KEY_LT, KEY_RT);
 
 function player(_cx, _cy, _GO_LEFT, _GO_RIGHT)
 {

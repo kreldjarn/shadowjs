@@ -14,7 +14,7 @@ var g_ball = (function()
         trail = halo(cx, cy, '255, 255, 255'),
         isIdle = true,
         justCollided = false;
-        RELEASE_KEY = 'M'.charCodeAt(0);
+        RELEASE_KEY = ' '.charCodeAt(0);
 
     var handleCollisions = function(prevX, prevY, nextX, nextY)
     {

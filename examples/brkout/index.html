@@ -2,6 +2,21 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Breakout!</title>
+	<style>
+		body {
+			background-color: #555;
+		}
+
+		#workspace {
+			margin: auto;
+			display: block;
+			border: 1px solid #CCC;
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 	<canvas id="workspace" width="600" height="600">
@@ -9,11 +24,12 @@
 			https://chrome.google.com
 		</a>
 	</canvas>
+	<div class="hidden">
 	<h1>Controls</h1>
 	<ul>
-		<li><strong>A:</strong> left</li>
-		<li><strong>D:</strong> right</li>
-		<li><strong>M:</strong> release ball</li>
+		<li><strong>Left Arrow:</strong> left</li>
+		<li><strong>Right Arrow:</strong> right</li>
+		<li><strong>Space Bar:</strong> release ball</li>
 		<li><strong>N:</strong> toggle 'floor is lava' (i.e. death upon hitting floor)</li>
 		<li><strong>I:</strong> toggle 'blind mode'</li>
 		<li><strong>P:</strong> toggle pause</li>
@@ -50,6 +66,7 @@
 		<li>Bricks can have up to 6 lives and can be indestructible (use -1 for indestructible bricks)</li>
 		<li>Code adheres to the <a href="https://carldanley.com/js-revealing-module-pattern/" target="_blank">Revealing Module Pattern</a>; objects have private and public members, implemented via closures</li>
 	</ul>
+	</div>
 </body>
 <script type="text/javascript" src="scripts/utils.js"></script>
 <script type="text/javascript" src="../../shadow.js"></script>
